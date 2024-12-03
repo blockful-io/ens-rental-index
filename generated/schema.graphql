@@ -1,0 +1,209 @@
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+scalar BigInt
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type Meta {
+  status: JSON
+}
+
+type Query {
+  listing(tokenId: BigInt!): listing
+  listings(where: listingFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): listingPage!
+  rental(tokenId: BigInt!): rental
+  rentals(where: rentalFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): rentalPage!
+  _meta: Meta
+}
+
+type listing {
+  tokenId: BigInt!
+  id: String!
+  name: String!
+  lender: String!
+  price: BigInt!
+  node: String!
+  isWrapped: Boolean!
+  rentalEnd: BigInt!
+  createdAt: BigInt!
+  rentals(where: rentalFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): rentalPage
+}
+
+type rentalPage {
+  items: [rental!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type rental {
+  tokenId: BigInt!
+  id: String!
+  borrower: String!
+  startTime: BigInt!
+  endTime: BigInt!
+  price: BigInt!
+  listingId: String!
+  listing: listing
+}
+
+input rentalFilter {
+  AND: [rentalFilter]
+  OR: [rentalFilter]
+  tokenId: BigInt
+  tokenId_not: BigInt
+  tokenId_in: [BigInt]
+  tokenId_not_in: [BigInt]
+  tokenId_gt: BigInt
+  tokenId_lt: BigInt
+  tokenId_gte: BigInt
+  tokenId_lte: BigInt
+  id: String
+  id_not: String
+  id_in: [String]
+  id_not_in: [String]
+  id_contains: String
+  id_not_contains: String
+  id_starts_with: String
+  id_ends_with: String
+  id_not_starts_with: String
+  id_not_ends_with: String
+  borrower: String
+  borrower_not: String
+  borrower_in: [String]
+  borrower_not_in: [String]
+  borrower_contains: String
+  borrower_not_contains: String
+  borrower_starts_with: String
+  borrower_ends_with: String
+  borrower_not_starts_with: String
+  borrower_not_ends_with: String
+  startTime: BigInt
+  startTime_not: BigInt
+  startTime_in: [BigInt]
+  startTime_not_in: [BigInt]
+  startTime_gt: BigInt
+  startTime_lt: BigInt
+  startTime_gte: BigInt
+  startTime_lte: BigInt
+  endTime: BigInt
+  endTime_not: BigInt
+  endTime_in: [BigInt]
+  endTime_not_in: [BigInt]
+  endTime_gt: BigInt
+  endTime_lt: BigInt
+  endTime_gte: BigInt
+  endTime_lte: BigInt
+  price: BigInt
+  price_not: BigInt
+  price_in: [BigInt]
+  price_not_in: [BigInt]
+  price_gt: BigInt
+  price_lt: BigInt
+  price_gte: BigInt
+  price_lte: BigInt
+  listingId: String
+  listingId_not: String
+  listingId_in: [String]
+  listingId_not_in: [String]
+  listingId_contains: String
+  listingId_not_contains: String
+  listingId_starts_with: String
+  listingId_ends_with: String
+  listingId_not_starts_with: String
+  listingId_not_ends_with: String
+}
+
+type listingPage {
+  items: [listing!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input listingFilter {
+  AND: [listingFilter]
+  OR: [listingFilter]
+  tokenId: BigInt
+  tokenId_not: BigInt
+  tokenId_in: [BigInt]
+  tokenId_not_in: [BigInt]
+  tokenId_gt: BigInt
+  tokenId_lt: BigInt
+  tokenId_gte: BigInt
+  tokenId_lte: BigInt
+  id: String
+  id_not: String
+  id_in: [String]
+  id_not_in: [String]
+  id_contains: String
+  id_not_contains: String
+  id_starts_with: String
+  id_ends_with: String
+  id_not_starts_with: String
+  id_not_ends_with: String
+  name: String
+  name_not: String
+  name_in: [String]
+  name_not_in: [String]
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_ends_with: String
+  name_not_starts_with: String
+  name_not_ends_with: String
+  lender: String
+  lender_not: String
+  lender_in: [String]
+  lender_not_in: [String]
+  lender_contains: String
+  lender_not_contains: String
+  lender_starts_with: String
+  lender_ends_with: String
+  lender_not_starts_with: String
+  lender_not_ends_with: String
+  price: BigInt
+  price_not: BigInt
+  price_in: [BigInt]
+  price_not_in: [BigInt]
+  price_gt: BigInt
+  price_lt: BigInt
+  price_gte: BigInt
+  price_lte: BigInt
+  node: String
+  node_not: String
+  node_in: [String]
+  node_not_in: [String]
+  node_contains: String
+  node_not_contains: String
+  node_starts_with: String
+  node_ends_with: String
+  node_not_starts_with: String
+  node_not_ends_with: String
+  isWrapped: Boolean
+  isWrapped_not: Boolean
+  isWrapped_in: [Boolean]
+  isWrapped_not_in: [Boolean]
+  rentalEnd: BigInt
+  rentalEnd_not: BigInt
+  rentalEnd_in: [BigInt]
+  rentalEnd_not_in: [BigInt]
+  rentalEnd_gt: BigInt
+  rentalEnd_lt: BigInt
+  rentalEnd_gte: BigInt
+  rentalEnd_lte: BigInt
+  createdAt: BigInt
+  createdAt_not: BigInt
+  createdAt_in: [BigInt]
+  createdAt_not_in: [BigInt]
+  createdAt_gt: BigInt
+  createdAt_lt: BigInt
+  createdAt_gte: BigInt
+  createdAt_lte: BigInt
+}
