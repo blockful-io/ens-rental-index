@@ -18,8 +18,8 @@ export default createConfig({
     ENSRent: {
       network: "sepolia",
       abi: ENSRentABI,
-      address: "0xBB053293241f0880844C00f519989B4f38CC2142",
-      startBlock: 7092100
+      address: "0x46e33904ba38c0bfc946464f26128119268ea8e8",
+      startBlock: 7225182
     },
   },
 });

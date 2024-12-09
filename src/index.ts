@@ -9,8 +9,9 @@ ponder.on("ENSRent:DomainListed", async ({ event, context }) => {
     lender: event.args.lender,
     price: event.args.minPricePerSecond,
     node: event.args.nameNode,
-    rentalEnd: event.args.maxEndTimestamp,
+    maxRentalTime: event.args.maxEndTimestamp,
     createdAt: event.block.timestamp,
+    available: true,
     isWrapped: Boolean(event.args.tokenId && event.args.tokenId > 0n),
   });
 });
@@ -21,6 +22,10 @@ ponder.on("ENSRent:DomainRented", async ({ event, context }) => {
   if (!listing) {
     throw new Error(`Listing not found for tokenId: ${event.args.tokenId}`)
   }
+
+  await context.db.update(schema.listing, { tokenId: event.args.tokenId }).set({
+    available: false,
+  })
 
   await context.db.insert(schema.rental).values({
     id: event.transaction.hash,
@@ -37,6 +42,6 @@ ponder.on("ENSRent:DomainReclaimed", async ({ event, context }) => {
   await context.db
     .update(schema.listing, { tokenId: event.args.tokenId })
     .set({
-      rentalEnd: event.block.timestamp,
+      available: false,
     })
 });

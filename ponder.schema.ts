@@ -8,7 +8,8 @@ export const listing = onchainTable("listing", (t) => ({
   price: t.bigint().notNull(), // Price for rentals
   node: t.text().notNull(), // Domain's namehash
   isWrapped: t.boolean().notNull(), // Whether domain is wrapped (ERC1155) or unwrapped (ERC721)
-  rentalEnd: t.bigint().notNull(),
+  maxRentalTime: t.bigint().notNull(),
+  available: t.boolean().notNull(),
   createdAt: t.bigint().notNull(),
 }),
   (table) => ({
