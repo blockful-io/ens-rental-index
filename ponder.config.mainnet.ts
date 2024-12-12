@@ -5,9 +5,9 @@ import { ENSRentABI } from "./abis/ENSRent";
 
 export default createConfig({
   networks: {
-    sepolia: {
-      chainId: 11155111,
-      transport: http(process.env.PONDER_RPC_URL_11155111),
+    mainnet: {
+      chainId: 1,
+      transport: http(process.env.PONDER_RPC_URL_1),
     },
   },
   database: {
@@ -16,10 +16,13 @@ export default createConfig({
   },
   contracts: {
     ENSRent: {
-      network: "sepolia",
       abi: ENSRentABI,
-      address: "0x46e33904ba38c0bfc946464f26128119268ea8e8",
-      startBlock: 7225182
+      network: {
+        mainnet: {
+          address: "0xd14Ec04E51E125d0aC1A11Fa328F2f06cA4969F6",
+          startBlock: 21383634
+        }
+      }
     },
   },
 });
