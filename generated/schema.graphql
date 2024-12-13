@@ -17,22 +17,21 @@ type Meta {
 }
 
 type Query {
-  listing(tokenId: BigInt!): listing
+  listing(id: String!, tokenId: BigInt!): listing
   listings(where: listingFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): listingPage!
-  rental(tokenId: BigInt!): rental
+  rental(id: String!, tokenId: BigInt!): rental
   rentals(where: rentalFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): rentalPage!
   _meta: Meta
 }
 
 type listing {
-  tokenId: BigInt!
   id: String!
+  tokenId: BigInt!
   name: String!
   lender: String!
   price: BigInt!
   node: String!
-  isWrapped: Boolean!
-  rentalEnd: BigInt!
+  maxRentalTime: BigInt!
   createdAt: BigInt!
   rentals(where: rentalFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int): rentalPage
 }
@@ -44,27 +43,20 @@ type rentalPage {
 }
 
 type rental {
-  tokenId: BigInt!
   id: String!
+  tokenId: BigInt!
   borrower: String!
   startTime: BigInt!
   endTime: BigInt!
   price: BigInt!
   listingId: String!
+  createdAt: BigInt!
   listing: listing
 }
 
 input rentalFilter {
   AND: [rentalFilter]
   OR: [rentalFilter]
-  tokenId: BigInt
-  tokenId_not: BigInt
-  tokenId_in: [BigInt]
-  tokenId_not_in: [BigInt]
-  tokenId_gt: BigInt
-  tokenId_lt: BigInt
-  tokenId_gte: BigInt
-  tokenId_lte: BigInt
   id: String
   id_not: String
   id_in: [String]
@@ -75,6 +67,14 @@ input rentalFilter {
   id_ends_with: String
   id_not_starts_with: String
   id_not_ends_with: String
+  tokenId: BigInt
+  tokenId_not: BigInt
+  tokenId_in: [BigInt]
+  tokenId_not_in: [BigInt]
+  tokenId_gt: BigInt
+  tokenId_lt: BigInt
+  tokenId_gte: BigInt
+  tokenId_lte: BigInt
   borrower: String
   borrower_not: String
   borrower_in: [String]
@@ -119,6 +119,14 @@ input rentalFilter {
   listingId_ends_with: String
   listingId_not_starts_with: String
   listingId_not_ends_with: String
+  createdAt: BigInt
+  createdAt_not: BigInt
+  createdAt_in: [BigInt]
+  createdAt_not_in: [BigInt]
+  createdAt_gt: BigInt
+  createdAt_lt: BigInt
+  createdAt_gte: BigInt
+  createdAt_lte: BigInt
 }
 
 type listingPage {
@@ -130,14 +138,6 @@ type listingPage {
 input listingFilter {
   AND: [listingFilter]
   OR: [listingFilter]
-  tokenId: BigInt
-  tokenId_not: BigInt
-  tokenId_in: [BigInt]
-  tokenId_not_in: [BigInt]
-  tokenId_gt: BigInt
-  tokenId_lt: BigInt
-  tokenId_gte: BigInt
-  tokenId_lte: BigInt
   id: String
   id_not: String
   id_in: [String]
@@ -148,6 +148,14 @@ input listingFilter {
   id_ends_with: String
   id_not_starts_with: String
   id_not_ends_with: String
+  tokenId: BigInt
+  tokenId_not: BigInt
+  tokenId_in: [BigInt]
+  tokenId_not_in: [BigInt]
+  tokenId_gt: BigInt
+  tokenId_lt: BigInt
+  tokenId_gte: BigInt
+  tokenId_lte: BigInt
   name: String
   name_not: String
   name_in: [String]
@@ -186,18 +194,14 @@ input listingFilter {
   node_ends_with: String
   node_not_starts_with: String
   node_not_ends_with: String
-  isWrapped: Boolean
-  isWrapped_not: Boolean
-  isWrapped_in: [Boolean]
-  isWrapped_not_in: [Boolean]
-  rentalEnd: BigInt
-  rentalEnd_not: BigInt
-  rentalEnd_in: [BigInt]
-  rentalEnd_not_in: [BigInt]
-  rentalEnd_gt: BigInt
-  rentalEnd_lt: BigInt
-  rentalEnd_gte: BigInt
-  rentalEnd_lte: BigInt
+  maxRentalTime: BigInt
+  maxRentalTime_not: BigInt
+  maxRentalTime_in: [BigInt]
+  maxRentalTime_not_in: [BigInt]
+  maxRentalTime_gt: BigInt
+  maxRentalTime_lt: BigInt
+  maxRentalTime_gte: BigInt
+  maxRentalTime_lte: BigInt
   createdAt: BigInt
   createdAt_not: BigInt
   createdAt_in: [BigInt]

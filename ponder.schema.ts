@@ -1,8 +1,8 @@
-import { index, onchainTable, relations } from "@ponder/core";
+import { index, onchainTable, relations, primaryKey } from "ponder";
 
 export const listing = onchainTable("listing", (t) => ({
-  tokenId: t.bigint().primaryKey(), // Domain's ERC721 token ID
   id: t.text().notNull(), // Tx hash of listing
+  tokenId: t.bigint().notNull(), // Domain's ERC721 token ID
   name: t.text().notNull(), // ENS name (e.g., "crypto.eth")
   lender: t.text().notNull(), // Owner's address
   price: t.bigint().notNull(), // Price for rentals
@@ -11,6 +11,7 @@ export const listing = onchainTable("listing", (t) => ({
   createdAt: t.bigint().notNull(), // Event block timestamp
 }),
   (table) => ({
+    primaryKey: primaryKey({ columns: [table.id, table.tokenId] }),
     idIdx: index().on(table.id),
     tokenIdIdx: index().on(table.tokenId),
     lenderIdx: index().on(table.lender),
@@ -21,8 +22,8 @@ export const listingRelations = relations(listing, ({ many }) => ({
 }));
 
 export const rental = onchainTable("rental", (t) => ({
-  tokenId: t.bigint().primaryKey(), // Domain's ERC721 token ID
   id: t.text().notNull(), // Tx hash of rental
+  tokenId: t.bigint().notNull(), // Domain's ERC721 token ID
   borrower: t.text().notNull(), // Renter's address
   startTime: t.bigint().notNull(), // Rental start timestamp
   endTime: t.bigint().notNull(), // Rental end timestamp
@@ -31,6 +32,7 @@ export const rental = onchainTable("rental", (t) => ({
   createdAt: t.bigint().notNull(), // Event block timestamp
 }),
   (table) => ({
+    primaryKey: primaryKey({ columns: [table.id, table.tokenId] }),
     idIdx: index().on(table.id),
     tokenIdIdx: index().on(table.tokenId),
     borrowerIdx: index().on(table.borrower),
