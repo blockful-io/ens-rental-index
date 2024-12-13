@@ -7,10 +7,8 @@ export const listing = onchainTable("listing", (t) => ({
   lender: t.text().notNull(), // Owner's address
   price: t.bigint().notNull(), // Price for rentals
   node: t.text().notNull(), // Domain's namehash
-  isWrapped: t.boolean().notNull(), // Whether domain is wrapped (ERC1155) or unwrapped (ERC721)
-  maxRentalTime: t.bigint().notNull(),
-  available: t.boolean().notNull(),
-  createdAt: t.bigint().notNull(),
+  maxRentalTime: t.bigint().notNull(), // Max rental time
+  createdAt: t.bigint().notNull(), // Event block timestamp
 }),
   (table) => ({
     idIdx: index().on(table.id),
@@ -30,6 +28,7 @@ export const rental = onchainTable("rental", (t) => ({
   endTime: t.bigint().notNull(), // Rental end timestamp
   price: t.bigint().notNull(), // Rate paid
   listingId: t.text().notNull(), // ID of the listing
+  createdAt: t.bigint().notNull(), // Event block timestamp
 }),
   (table) => ({
     idIdx: index().on(table.id),

@@ -1,22 +1,22 @@
 {
   "name": "ens-rental-indexer",
-  "private": true,
+  "private": false,
   "type": "module",
   "scripts": {
-    "dev": "ponder dev",
-    "start": "ponder start",
-    "codegen": "ponder codegen",
-    "serve": "ponder serve",
+    "dev": "ponder dev --config ./ponder.config.sepolia.ts",
+    "start": "ponder start --config ./ponder.config.sepolia.ts",
+    "codegen": "ponder codegen --config ./ponder.config.sepolia.ts",
+    "serve": "ponder serve --config ./ponder.config.sepolia.ts",
     "lint": "eslint .",
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@ponder/core": "^0.7.16",
     "hono": "^4.6.13",
-    "viem": "^2.21.54"
+    "ponder": "^0.8.2",
+    "viem": "^2.21.55"
   },
   "devDependencies": {
-    "@types/node": "^22.10.1",
+    "@types/node": "^22.10.2",
     "eslint": "^8.54.0",
     "eslint-config-ponder": "^0.7.11",
     "typescript": "^5.7.2"
